@@ -4,22 +4,32 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-#content {
-    width: 80%;
-    margin: 0 auto;
-}
-
-#content div {
-    float: left;
-    width: 300px;
-    height: 300px;
-    margin: 2em;
-    background: #5555ff;
+main {
+    width: 44%;
+    margin: 2rem auto;
     text-align: center;
+    background: #f6f6f6;
+    padding: 1rem;
     border-radius: 4px;
 }
 
-#content div p {
+main label, main input {
+    display: block;
+}
+
+main input {
+    text-align: center;
+    width: 50%;
+    margin: 1rem auto;
+}
+
+#daysBtn, #hoursBtn, #minutesBtn, #secondsBtn {
+    background: gray;
+    width: 18%;
+    border: 2px solid gray;
+    border-radius: 4px;
+    padding: 4px 9px;
+    text-transform: uppercase;
+    font-weight: bold;
     color: white;
-    margin: 6em 3em 6em 3em;
 }
