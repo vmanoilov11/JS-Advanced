@@ -1,41 +1,35 @@
-function attachEventsListeners() {
-    let daysButton = document.getElementById("daysBtn")
-    daysButton.addEventListener("click", convertDays);
-
-    function convertDays(){
-        let days = document.getElementById("days").value;
-        document.getElementById("hours").value = days * 24;
-        document.getElementById("minutes").value = days * 24 * 60;
-        document.getElementById("seconds").value = days * 24 * 60 * 60;
+function solve() {
+  let generateBtn = document.querySelectorAll("button")[0];
+  let buyBtn = document.querySelectorAll("button")[1];
+  let textArea = document.querySelectorAll("textarea")[0];
+  generateBtn.addEventListener("click", generate);
+  buyBtn.addEventListener("click", buy);
+  let tbody = document.querySelector('tbody');
+  let result = document.querySelectorAll("textarea")[1];
+  
+  function generate(e){
+    let json = JSON.parse(textArea.value);
+    for(furniture of json){
+      let tr = document.createElement("tr");
+      tr.innerHTML = `
+      <td><img src="${furniture.img}" alt="${furniture.name}"></td>
+      <td>${furniture.name}</td>
+      <td>${furniture.price}</td>
+      <td>${furniture.decFactor}</td>
+      <td><input type="checkbox"></td>`;
+    
+      tbody.appendChild(tr);
     }
+  }
+  
+  function buy(e) {
+    let checkedCheckboxes = Array.from(document.querySelectorAll('.table tbody input:checked'));
+    let boughtFurniture = checkedCheckboxes.map(checkbox => checkbox.parentNode.parentNode.querySelector('td:nth-of-type(2)').textContent);
+    let totalPrice = checkedCheckboxes.reduce((acc, checkbox) => acc + parseFloat(checkbox.parentNode.parentNode.querySelector('td:nth-of-type(3)').textContent), 0);
+    let totalDecFactor = checkedCheckboxes.reduce((acc, checkbox) => acc + parseFloat(checkbox.parentNode.parentNode.querySelector('td:nth-of-type(4)').textContent), 0);
 
-    let hoursButton = document.getElementById("hoursBtn")
-    hoursButton.addEventListener("click", convertHours);
-
-    function convertHours(){
-        let hours = document.getElementById("hours").value;
-        document.getElementById("days").value = hours / 24;
-        document.getElementById("minutes").value = hours * 60;
-        document.getElementById("seconds").value = hours * 60 * 60;
-    }
-
-    let minButton = document.getElementById("minutesBtn")
-    minButton.addEventListener("click", convertMinutes);
-
-    function convertMinutes(){
-        let minutes = document.getElementById("minutes").value;
-        document.getElementById("days").value = minutes / (24 * 60);
-        document.getElementById("hours").value = minutes / 60;
-        document.getElementById("seconds").value = minutes * 60;
-    }
-
-    let secButton = document.getElementById("secondsBtn")
-    secButton.addEventListener("click", convertSeconds);
-
-    function convertSeconds() {
-        let seconds = parseFloat(document.getElementById('seconds').value);
-        document.getElementById('days').value = seconds / (24 * 60 * 60);
-        document.getElementById('hours').value = seconds / (60 * 60);
-        document.getElementById('minutes').value = seconds / 60;
-    }
+    result.value = `Bought furniture: ${boughtFurniture.join(', ')}`;
+    result.value += `\nTotal price: ${totalPrice.toFixed(2)}`;
+    result.value += `\nAverage decoration factor: ${totalDecFactor / checkedCheckboxes.length || 0}`;
+  }
 }
