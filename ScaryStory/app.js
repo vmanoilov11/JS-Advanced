@@ -1,7 +1,7 @@
 window.addEventListener("load", solve);
 
 function solve() {
-  let firstNameElement = document.getElementById("first-name");
+  let firstNameElement = document.getElementById("first-name")
   let lastNameElement = document.getElementById("last-name");
   let ageElement = document.getElementById("age");
   let storyTitleElement = document.getElementById("story-title");
