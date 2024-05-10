@@ -16,6 +16,6 @@ function search() {
          element.style.textDecoration = "underline";
       }
    }
-   resultElement.textContent = `${matches} matches found` 
+   resultElement.textContent = `${matches} matches found`;
 
 }
