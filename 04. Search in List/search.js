@@ -12,8 +12,8 @@ function search() {
       let text = element.textContent
       if(text.match(searchText)){
          matches++
-         element.style.fontWeight = "bold"
-         element.style.textDecoration = "underline" 
+         element.style.fontWeight = "bold";
+         element.style.textDecoration = "underline";
       }
    }
    resultElement.textContent = `${matches} matches found` 
