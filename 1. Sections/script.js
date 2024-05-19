@@ -12,7 +12,7 @@ function create(words) {
       div.addEventListener("click", load);
       
       function load(e){
-         e.currentTarget.children[0].style.display = "";
+         e.currentTarget.children[0].style.display = ""
 
       }
 
