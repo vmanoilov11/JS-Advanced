@@ -2,7 +2,7 @@ function solve() {
    document.querySelector('#searchBtn').addEventListener('click', onClick);
 
    function onClick() {
-      let searchText = document.getElementById('searchField').value.toLowerCase();
+      let searchText = document.getElementById('searchField').value.toLowerCase()
 
       let rows = Array.from(document.querySelectorAll("tbody tr"));
 
