@@ -9,9 +9,9 @@ function solve(){
 
     function add(e){
         e.preventDefault();
-        let place = document.getElementById("place").value
-        let action = document.getElementById("action").value
-        let person = document.getElementById("person").value
+        let place = document.getElementById("place").value;
+        let action = document.getElementById("action").value;
+        let person = document.getElementById("person").value;
 
         if(place == "" || action == "" || person == ""){
             return
@@ -27,12 +27,12 @@ function solve(){
                     <button class="edit">Edit</button>
                     <button class="done">Done</button>
                 </div>
-        </li>`
-        tasks.appendChild(li)
+        </li>`;
+        tasks.appendChild(li);
 
-        document.getElementById("place").value = ""
-        document.getElementById("action").value = ""
-        document.getElementById("person").value = ""
+        document.getElementById("place").value = "";
+        document.getElementById("action").value = "";
+        document.getElementById("person").value = "";
 
 
         document.querySelector(".edit").addEventListener("click", edit);
@@ -42,11 +42,11 @@ function solve(){
         document.getElementById("action").value = action;
         document.getElementById("person").value = person;
 
-        tasks.removeChild(li)
+        tasks.removeChild(li);
         }
 
         function done(e){
-            tasks.removeChild(li)
+            tasks.removeChild(li);
 
             let newLi = document.createElement("li");
             newLi.innerHTML = `<li>
