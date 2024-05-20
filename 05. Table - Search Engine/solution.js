@@ -15,7 +15,7 @@ function solve() {
          for (let cell of cells) {
             if (cell.textContent.toLowerCase().includes(searchText)) {
                row.classList.add("select");
-               break
+               break;
             }
          }
       }
