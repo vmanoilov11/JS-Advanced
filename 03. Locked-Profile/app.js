@@ -14,7 +14,7 @@ function lockedProfile() {
 
         }else{
             div.style.display = "";
-            e.target.textContent = "Show more";
+            e.target.textContent = "Show more"
 
         }
     }
