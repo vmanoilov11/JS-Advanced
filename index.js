@@ -1,8 +1,32 @@
-import express from "express"
-const app = express();
-const port = 3000;
+import inquirer from "inquirer";
+import qr from "qr-image";
+import fs from "fs";
 
-app.listen(port, ()=> {
- console.log(
-    `Server running on port ${port}`
-)});
+
+inquirer
+  .prompt([
+    {
+        "message": "Type your message here: ",
+        "name": "URL"
+    }
+  ])
+  .then((answers) => {
+    const url = answers.URL;
+    let qr_res = qr.image(url);
+    qr_res.pipe(fs.createWriteStream('qr_img.png'));
+
+    
+    fs.writeFile('URL.txt', url, (err) => {
+        if(err) throw err;
+        console.log("File saved sucsesfullu")
+    })
+        
+
+  })
+  .catch((error) => {
+    if (error.isTtyError) {
+      // Prompt couldn't be rendered in the current environment
+    } else {
+      // Something else went wrong
+    }
+  });
