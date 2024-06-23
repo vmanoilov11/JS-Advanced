@@ -1,35 +1,33 @@
-function solve() {
-  let generateBtn = document.querySelectorAll("button")[0];
-  let buyBtn = document.querySelectorAll("button")[1];
-  let textArea = document.querySelectorAll("textarea")[0];
-  generateBtn.addEventListener("click", generate);
-  buyBtn.addEventListener("click", buy);
-  let tbody = document.querySelector('tbody');
-  let result = document.querySelectorAll("textarea")[1];
-  
-  function generate(e){
-    let json = JSON.parse(textArea.value);
-    for(furniture of json){
-      let tr = document.createElement("tr");
-      tr.innerHTML = `
-      <td><img src="${furniture.img}" alt="${furniture.name}"></td>
-      <td>${furniture.name}</td>
-      <td>${furniture.price}</td>
-      <td>${furniture.decFactor}</td>
-      <td><input type="checkbox"></td>`;
-    
-      tbody.appendChild(tr);
-    }
-  }
-  
-  function buy(e) {
-    let checkedCheckboxes = Array.from(document.querySelectorAll('.table tbody input:checked'));
-    let boughtFurniture = checkedCheckboxes.map(checkbox => checkbox.parentNode.parentNode.querySelector('td:nth-of-type(2)').textContent);
-    let totalPrice = checkedCheckboxes.reduce((acc, checkbox) => acc + parseFloat(checkbox.parentNode.parentNode.querySelector('td:nth-of-type(3)').textContent), 0);
-    let totalDecFactor = checkedCheckboxes.reduce((acc, checkbox) => acc + parseFloat(checkbox.parentNode.parentNode.querySelector('td:nth-of-type(4)').textContent), 0);
+import inquirer from "inquirer";
+import qr from "qr-image";
+import fs from "fs";
 
-    result.value = `Bought furniture: ${boughtFurniture.join(', ')}`;
-    result.value += `\nTotal price: ${totalPrice.toFixed(2)}`;
-    result.value += `\nAverage decoration factor: ${totalDecFactor / checkedCheckboxes.length || 0}`;
-  }
-}
+inquirer
+  .prompt([
+    {
+      message: "Type in your URL: ",
+      name: "URL",
+    },
+  ])
+  .then((answers) => {
+    const url = answers.URL;
+    var qr_svg = qr.image(url);
+    qr_svg.pipe(fs.createWriteStream("qr_img.png"));
+
+    fs.writeFile("URL.txt", url, (err) => {
+      if (err) throw err;
+      console.log("The file has been saved!");
+    });
+  })
+  .catch((error) => {
+    if (error.isTtyError) {
+      // Prompt couldn't be rendered in the current environment
+    } else {
+      // Something else went wrong
+    }
+  });
+/* 
+1. Use the inquirer npm package to get user input.
+2. Use the qr-image npm package to turn the user entered URL into a QR code image.
+3. Create a txt file to save the user input using the native fs node module.
+*/
