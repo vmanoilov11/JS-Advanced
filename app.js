@@ -1,107 +1,80 @@
-window.addEventListener('load', solve);
+window.addEventListener("load", solve);
 
-function solve() {
+function solve(){
     let addBtn = document.getElementById("add-btn");
-    let checkList = document.getElementById('check-list');
+    let tasks = document.getElementById("task-list");
+    let doneTasks = document.getElementById("done-list");
+
     addBtn.addEventListener("click", add);
-    let upcomingList = document.getElementById("upcoming-list");
-    let finishedList = document.getElementById("finished-list" )
 
-
-    function add(e) {
+    function add(e){
         e.preventDefault();
+        let place = document.getElementById("place").value
+        let action = document.getElementById("action").value
+        let person = document.getElementById("person").value
 
-        let time = document.getElementById("time").value;
-        let date = document.getElementById("date").value;
-        let place = document.getElementById("place").value;
-        let event = document.getElementById("event-name").value;
-        let email = document.getElementById("email").value;
+        if(place == "" || action == "" || person == ""){
+            return
+        }
+        let li = document.createElement("li");
+        li.innerHTML = `<li class="clean-task">
+            <article>
+                <p>Place:${place}</p>
+                <p>Action:${action}</p>
+                <p>Person:${person}</p>
+            </article>
+                <div class="buttons">
+                    <button class="edit">Edit</button>
+                    <button class="done">Done</button>
+                </div>
+        </li>`
+        tasks.appendChild(li)
 
-        if (time === "" || date === "" || place === "" || event === "" || email === "") {
-            return;
+        document.getElementById("place").value = ""
+        document.getElementById("action").value = ""
+        document.getElementById("person").value = ""
+
+
+        document.querySelector(".edit").addEventListener("click", edit);
+        document.querySelector(".done").addEventListener("click", done);
+        function edit(e){
+        document.getElementById("place").value = place;
+        document.getElementById("action").value = action;
+        document.getElementById("person").value = person;
+
+        tasks.removeChild(li)
         }
 
-        let li = document.createElement("li");
-        li.innerHTML = `<li class="event-content">
+        function done(e){
+            tasks.removeChild(li)
+
+            let newLi = document.createElement("li");
+            newLi.innerHTML = `<li>
             <article>
-                <p>Begins: ${date} at: ${time}</p>
-                <p>In: ${place}</p>
-                <p>Event:  ${event}</p>
-                <p>Contact: ${email}</p>
+                <p>Place:${place}</p>
+                <p>Action:${action}</p>
+                <p>Person:${person}</p>
             </article>
-            <button class="edit-btn">Edit</button>
-            <button class="continue-btn">Continue</button>
-        </li>`;
+                <button class="delete">Delete</button>
+            </li>`
 
-        checkList.appendChild(li);
+            doneTasks.appendChild(newLi);
 
-        document.getElementById("time").value = ""
-        document.getElementById("date").value = ""
-        document.getElementById("place").value= ""
-        document.getElementById("event-name").value= ""
-        document.getElementById("email").value= ""
-        document.getElementById("add-btn").disabled = true;
+            document.querySelector(".delete").addEventListener("click", deleteFunc);
 
-        li.querySelector(".edit-btn").addEventListener("click", edit);
-        li.querySelector(".continue-btn").addEventListener("click", continueFunc);
+            function deleteFunc(e){
+                let li = this.closest("li");
+                doneTasks.removeChild(li);
 
-
-    function edit(){
-        document.getElementById("time").value = time
-        document.getElementById("date").value = date
-        document.getElementById("place").value= place
-        document.getElementById("event-name").value= event 
-        document.getElementById("email").value= email
-
-
-    checkList.remove(li)
-    document.getElementById("add-btn").disabled = false;
-        
-
-    }
-    function continueFunc(){
-        let li = document.createElement("li");
-            li.innerHTML = `<li class="event-content">
-                <article>
-                    <p>Begins: ${date} at: ${time}</p>
-                    <p>In: ${place}</p>
-                    <p>Event:  ${event}</p>
-                    <p>Contact: ${email}</p>
-                </article>
-                <button class="finished-btn">Move to Finished</button>
-            </li>`;
-            upcomingList.appendChild(li);
-
-        checkList.remove(li)
-        addBtn.disabled = false;
-        document.querySelector(".finished-btn").addEventListener("click", finish)
-
-        function finish(e){
-            let li = document.createElement("li")
-            li.innerHTML = `<li class="event-content">
-            <article>
-                <p>Begins: ${date} at: ${time}</p>
-                <p>In: ${place}</p>
-                <p>Event:  ${event}</p>
-                <p>Contact: ${email}</p>
-            </article>
-        </li>`
-            finishedList.appendChild(li)
-            upcomingList.remove(li)
-
-            const cancelBtn = document.getElementById('clear')
-            cancelBtn.addEventListener('click',clear);
-
-            function clear(){
-                finishedList.remove()
-                addBtn.disabled = false;
             }
 
         }
 
 
 
-    }
+
 
     }
 }
+
+//TODO...
