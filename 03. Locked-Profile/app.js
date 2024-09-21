@@ -2,7 +2,8 @@ function lockedProfile() {
     Array.from(document.querySelectorAll(".profile button")).forEach((btn) => 
         btn.addEventListener("click", ToggleProfiles));
 
-    function ToggleProfiles(e){
+    function ToggleProfiles(e){ 
+        
     let profile = e.target.parentElement;
     isUnlocked = profile.querySelector(`input[type="radio"][value="unlock"]`).checked;
 
