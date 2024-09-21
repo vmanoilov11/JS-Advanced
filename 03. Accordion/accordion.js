@@ -5,7 +5,7 @@ function toggle() {
     if(button.textContent == "More"){
         button.textContent = "Less";
         text.style.display = "block";
-    }else{
+    } else {
         text.style.display = "none";
         button.textContent = "More";
     }
